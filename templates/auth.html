@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Create account' if registering else 'Sign in' }} | Still{% endblock %}
+{% block content %}
+<div class="auth-layout">
+  <section class="form-section" aria-labelledby="page-title">
+    <div class="form-inner">
+      <p class="eyebrow">{{ 'YOUR NEXT CHAPTER' if registering else 'YOUR PERSONAL SPACE' }}</p>
+      <h1 id="page-title">{{ 'Make yourself at home.' if registering else 'Good to see you again.' }}</h1>
+      <p class="intro">{{ 'Create your Still account.' if registering else 'Sign in to your Still account.' }}</p>
+      {% for category, message in get_flashed_messages(with_categories=true) %}
+      <div class="notice {{ category }}" role="status">{{ message }}</div>
+      {% endfor %}
+      <form method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="field">
+          {{ form.username.label }}
+          {{ form.username(autocomplete='username', placeholder='Your username', maxlength=32, spellcheck='false', aria_describedby='username-errors', aria_invalid='true' if form.username.errors else 'false') }}
+          <div id="username-errors">{% for error in form.username.errors %}<p class="field-error">{{ error }}</p>{% endfor %}</div>
+        </div>
+        <div class="field">
+          {{ form.password.label }}
+          {{ form.password(autocomplete='new-password' if registering else 'current-password', placeholder='At least 12 characters' if registering else 'Your password', maxlength=128, aria_describedby='password-errors', aria_invalid='true' if form.password.errors else 'false') }}
+          <div id="password-errors">{% for error in form.password.errors %}<p class="field-error">{{ error }}</p>{% endfor %}</div>
+        </div>
+        {{ form.submit(class_='primary-button') }}
+      </form>
+      <p class="switch-auth">{{ 'Already have an account?' if registering else 'New around here?' }} <a href="{{ url_for('login') if registering else url_for('register') }}">{{ 'Sign in' if registering else 'Create an account' }}</a></p>
+    </div>
+  </section>
+  <aside class="photo-section" aria-label="Mountain landscape">
+    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1400&q=85" alt="Sunlight falling across a rugged mountain peak" fetchpriority="high">
+    <span class="photo-tag">ROOM TO BREATHE</span>
+    <div class="photo-caption"><span>01 / A NEW PERSPECTIVE</span><p>Find your<br>own rhythm.</p></div>
+  </aside>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Still | Your account{% endblock %}</title>
+  <script src="{{ url_for('static', filename='theme.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('dashboard') }}" aria-label="Still home"><span class="brand-mark" aria-hidden="true"></span>still<span class="brand-dot">.</span></a>
+    <div class="header-actions">
+      <span class="header-caption">A little space of your own</span>
+      <button class="theme-toggle secondary-button" type="button" aria-label="Dark theme" aria-pressed="false" hidden>
+        <span class="theme-icon" aria-hidden="true">◐</span> Dark theme
+      </button>
+    </div>
+  </header>
+  <main>{% block content %}{% endblock %}</main>
+  <footer><span>STILL / ACCOUNT</span><span>A fresh start, every day.</span></footer>
+</body>
+</html>
